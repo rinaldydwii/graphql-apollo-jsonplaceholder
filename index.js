@@ -71,16 +71,22 @@ const typeDefs = gql `
     }
     type Query {
         users: [User]
+        user(id: ID): User
         posts: [Post]
         postsByUserId(userId: ID): [Post]
+        post(id: ID): Post
         comments: [Comment]
         commentsByPostId(postId: ID): [Comment]
+        comment(id: ID): Comment
         albums: [Album]
         albumsByUserId(userId: ID): [Album]
+        album(id: ID): Album
         photos: [Photo]
         photosByAlbumId(albumId: ID): [Photo]
+        photo(id: ID): Photo
         todos: [Todo]
         todosByUserId(userId: ID): [Todo]
+        todo(id: ID): Todo
     }
 `;
 
@@ -89,11 +95,17 @@ const resolvers = {
         users: () => {
             return axios(`${MAIN_API_URL}${USER_ROUTE}`).then(res => res.data)
         },
+        user: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${USER_ROUTE}/${id}`).then(res => res.data)
+        },
         posts: () => {
             return axios(`${MAIN_API_URL}${POST_ROUTE}`).then(res => res.data)
         },
         postsByUserId: (_, {userId}) => {
             return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${POST_ROUTE}`).then(res => res.data)
+        },
+        post: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${POST_ROUTE}/${id}`).then(res => res.data)
         },
         comments: () => {
             return axios(`${MAIN_API_URL}${COMMENT_ROUTE}`).then(res => res.data)
@@ -101,11 +113,17 @@ const resolvers = {
         commentsByPostId: (_, {postId}) => {
             return axios(`${MAIN_API_URL}${POST_ROUTE}/${postId}/${COMMENT_ROUTE}`).then(res => res.data)
         },
+        comment: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${COMMENT_ROUTE}/${id}`).then(res => res.data)
+        },
         albums: () => {
             return axios(`${MAIN_API_URL}${ALBUM_ROUTE}`).then(res => res.data)
         },
         albumsByUserId: (_, {userId}) => {
             return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${ALBUM_ROUTE}`).then(res => res.data)
+        },
+        album: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${ALBUM_ROUTE}/${id}`).then(res => res.data)
         },
         photos: () => {
             return axios(`${MAIN_API_URL}${PHOTO_ROUTE}`).then(res => res.data)
@@ -113,11 +131,17 @@ const resolvers = {
         photosByAlbumId: (_, {albumId}) => {
             return axios(`${MAIN_API_URL}${ALBUM_ROUTE}/${albumId}/${PHOTO_ROUTE}`).then(res => res.data)
         },
+        photo: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${PHOTO_ROUTE}/${id}`).then(res => res.data)
+        },
         todos: () => {
             return axios(`${MAIN_API_URL}${TODO_ROUTE}`).then(res => res.data)
         },
         todosByUserId: (_, {userId}) => {
             return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${TODO_ROUTE}`).then(res => res.data)
+        },
+        todo: (_, {id}) => {
+            return axios(`${MAIN_API_URL}${TODO_ROUTE}/${id}`).then(res => res.data)
         },
     },
 };
