@@ -1,5 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest')
-const { MAIN_API_URL, USER_ROUTE } = require('../config/api')
+const { MAIN_API_URL, USER_ROUTE, POST_ROUTE, ALBUM_ROUTE, TODO_ROUTE} = require('../config/api')
 
 class UsersAPI extends RESTDataSource {
     constructor() {
@@ -12,7 +12,20 @@ class UsersAPI extends RESTDataSource {
         })
     }
     async getUser(id) {
-        return this.get(`${USER_ROUTE}/${id}`, {
+        return this.get(`${USER_ROUTE}/${id}`)
+    }
+    async getUserPosts(id) {
+        return this.get(`${USER_ROUTE}/${id}/${POST_ROUTE}`, {
+            _limit: 20
+        })
+    }
+    async getUserAlbums(id) {
+        return this.get(`${USER_ROUTE}/${id}/${ALBUM_ROUTE}`, {
+            _limit: 20
+        })
+    }
+    async getUserTodos(id) {
+        return this.get(`${USER_ROUTE}/${id}/${TODO_ROUTE}`, {
             _limit: 20
         })
     }
