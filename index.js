@@ -3,13 +3,7 @@ const {
     gql
 } = require('apollo-server');
 const axios = require("axios");
-const MAIN_API_URL = "https://json-server-jsonplaceholder.herokuapp.com/";
-const USER_ROUTE = "users";
-const POST_ROUTE = "posts";
-const COMMENT_ROUTE = "comments";
-const ALBUM_ROUTE = "albums";
-const PHOTO_ROUTE = "photos";
-const TODO_ROUTE = "todos";
+const UsersAPI = require("./sources/user")
 
 const typeDefs = gql `
     type Geo {
@@ -92,63 +86,68 @@ const typeDefs = gql `
 
 const resolvers = {
     Query: {
-        users: () => {
-            return axios(`${MAIN_API_URL}${USER_ROUTE}`).then(res => res.data)
+        users: async (_source, _args, {dataSources}) => {
+            return dataSources.usersAPI.getUsers();
         },
-        user: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${USER_ROUTE}/${id}`).then(res => res.data)
+        user: (_source, {id}, {dataSources}) => {
+            return dataSources.usersAPI.getUser(id);
         },
-        posts: () => {
-            return axios(`${MAIN_API_URL}${POST_ROUTE}`).then(res => res.data)
-        },
-        postsByUserId: (_, {userId}) => {
-            return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${POST_ROUTE}`).then(res => res.data)
-        },
-        post: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${POST_ROUTE}/${id}`).then(res => res.data)
-        },
-        comments: () => {
-            return axios(`${MAIN_API_URL}${COMMENT_ROUTE}`).then(res => res.data)
-        },
-        commentsByPostId: (_, {postId}) => {
-            return axios(`${MAIN_API_URL}${POST_ROUTE}/${postId}/${COMMENT_ROUTE}`).then(res => res.data)
-        },
-        comment: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${COMMENT_ROUTE}/${id}`).then(res => res.data)
-        },
-        albums: () => {
-            return axios(`${MAIN_API_URL}${ALBUM_ROUTE}`).then(res => res.data)
-        },
-        albumsByUserId: (_, {userId}) => {
-            return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${ALBUM_ROUTE}`).then(res => res.data)
-        },
-        album: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${ALBUM_ROUTE}/${id}`).then(res => res.data)
-        },
-        photos: () => {
-            return axios(`${MAIN_API_URL}${PHOTO_ROUTE}`).then(res => res.data)
-        },
-        photosByAlbumId: (_, {albumId}) => {
-            return axios(`${MAIN_API_URL}${ALBUM_ROUTE}/${albumId}/${PHOTO_ROUTE}`).then(res => res.data)
-        },
-        photo: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${PHOTO_ROUTE}/${id}`).then(res => res.data)
-        },
-        todos: () => {
-            return axios(`${MAIN_API_URL}${TODO_ROUTE}`).then(res => res.data)
-        },
-        todosByUserId: (_, {userId}) => {
-            return axios(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${TODO_ROUTE}`).then(res => res.data)
-        },
-        todo: (_, {id}) => {
-            return axios(`${MAIN_API_URL}${TODO_ROUTE}/${id}`).then(res => res.data)
-        },
+        // posts: () => {
+        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}`).then(res => res.data)
+        // },
+        // postsByUserId: (_, {userId}) => {
+        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${POST_ROUTE}`).then(res => res.data)
+        // },
+        // post: (_, {id}) => {
+        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}/${id}`).then(res => res.data)
+        // },
+        // comments: () => {
+        //     return axios.get(`${MAIN_API_URL}${COMMENT_ROUTE}`).then(res => res.data)
+        // },
+        // commentsByPostId: (_, {postId}) => {
+        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}/${postId}/${COMMENT_ROUTE}`).then(res => res.data)
+        // },
+        // comment: (_, {id}) => {
+        //     return axios.get(`${MAIN_API_URL}${COMMENT_ROUTE}/${id}`).then(res => res.data)
+        // },
+        // albums: () => {
+        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}`).then(res => res.data)
+        // },
+        // albumsByUserId: (_, {userId}) => {
+        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${ALBUM_ROUTE}`).then(res => res.data)
+        // },
+        // album: (_, {id}) => {
+        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}/${id}`).then(res => res.data)
+        // },
+        // photos: () => {
+        //     return axios.get(`${MAIN_API_URL}${PHOTO_ROUTE}`).then(res => res.data)
+        // },
+        // photosByAlbumId: (_, {albumId}) => {
+        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}/${albumId}/${PHOTO_ROUTE}`).then(res => res.data)
+        // },
+        // photo: (_, {id}) => {
+        //     return axios.get(`${MAIN_API_URL}${PHOTO_ROUTE}/${id}`).then(res => res.data)
+        // },
+        // todos: () => {
+        //     return axios.get(`${MAIN_API_URL}${TODO_ROUTE}`).then(res => res.data)
+        // },
+        // todosByUserId: (_, {userId}) => {
+        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${TODO_ROUTE}`).then(res => res.data)
+        // },
+        // todo: (_, {id}) => {
+        //     return axios.get(`${MAIN_API_URL}${TODO_ROUTE}/${id}`).then(res => res.data)
+        // },
     },
 };
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    dataSources: () => {
+        return {
+            usersAPI: new UsersAPI()
+        }
+    }
 });
 
 server.listen().then(({
