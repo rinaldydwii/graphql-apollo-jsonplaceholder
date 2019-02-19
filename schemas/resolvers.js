@@ -61,6 +61,15 @@ const resolvers = {
         },
         deleteUser: async (_, {id}, {dataSources}) => {
             return dataSources.usersAPI.deleteUser(id);
+        },
+        createTodo: async (_, {todo}, {dataSources}) => {
+            return dataSources.todosAPI.createTodo(todo);
+        },
+        updateTodo: async (_, {id, todo}, {dataSources}) => {
+            return dataSources.todosAPI.updateTodo(id, todo);
+        },
+        deleteTodo: async (_, {id}, {dataSources}) => {
+            return dataSources.todosAPI.deleteTodo(id);
         }
     }
 };

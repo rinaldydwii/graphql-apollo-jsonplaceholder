@@ -103,10 +103,18 @@ input UserInput {
     address: AddressInput
     company: CompanyInput
 }
+input TodoInput {
+    userId: ID
+    title: String
+    completed: Boolean
+}
 type Mutation {
     createUser(user: UserInput!): User
     updateUser(id: ID!, user: UserInput!): User
     deleteUser(id: ID): User 
+    createTodo(todo: TodoInput!): Todo
+    updateTodo(id: ID!, todo: TodoInput!): Todo
+    deleteTodo(id: ID): Todo 
 }
 `;
 

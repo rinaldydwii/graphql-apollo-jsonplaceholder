@@ -14,6 +14,15 @@ class TodosAPI extends RESTDataSource {
     async getTodo(id) {
         return this.get(`${TODO_ROUTE}/${id}`)
     }
+    async createTodo(todo) {
+        return this.post(TODO_ROUTE, todo)
+    }
+    async updateTodo(id, todo) {
+        return this.put(`${TODO_ROUTE}/${id}`, todo)
+    }
+    async deleteTodo(id, todo) {
+        return this.delete(`${TODO_ROUTE}/${id}`, todo)
+    }
 }
 
 module.exports = TodosAPI
