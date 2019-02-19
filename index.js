@@ -1,9 +1,10 @@
-const {
-    ApolloServer,
-    gql
-} = require('apollo-server');
-const axios = require("axios");
+const { ApolloServer, gql } = require('apollo-server');
 const UsersAPI = require("./sources/user")
+const PostsAPI = require("./sources/post")
+const CommentsAPI = require("./sources/comment")
+const AlbumsAPI = require("./sources/album")
+const PhotosAPI = require("./sources/photo")
+const TodosAPI = require("./sources/todo")
 
 const typeDefs = gql `
     type Geo {
@@ -66,20 +67,20 @@ const typeDefs = gql `
     type Query {
         users: [User]
         user(id: ID): User
+        userPosts(id: ID): [Post]
+        userAlbums(id: ID): [Post]
+        userTodos(id: ID): [Todo]
         posts: [Post]
-        postsByUserId(userId: ID): [Post]
         post(id: ID): Post
+        postComments(id: ID): [Comment]
         comments: [Comment]
-        commentsByPostId(postId: ID): [Comment]
         comment(id: ID): Comment
         albums: [Album]
-        albumsByUserId(userId: ID): [Album]
         album(id: ID): Album
+        albumPhotos(id: ID): [Photo]
         photos: [Photo]
-        photosByAlbumId(albumId: ID): [Photo]
         photo(id: ID): Photo
         todos: [Todo]
-        todosByUserId(userId: ID): [Todo]
         todo(id: ID): Todo
     }
 `;
@@ -89,54 +90,54 @@ const resolvers = {
         users: async (_source, _args, {dataSources}) => {
             return dataSources.usersAPI.getUsers();
         },
-        user: (_source, {id}, {dataSources}) => {
+        user: async (_source, {id}, {dataSources}) => {
             return dataSources.usersAPI.getUser(id);
         },
-        // posts: () => {
-        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}`).then(res => res.data)
-        // },
-        // postsByUserId: (_, {userId}) => {
-        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${POST_ROUTE}`).then(res => res.data)
-        // },
-        // post: (_, {id}) => {
-        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}/${id}`).then(res => res.data)
-        // },
-        // comments: () => {
-        //     return axios.get(`${MAIN_API_URL}${COMMENT_ROUTE}`).then(res => res.data)
-        // },
-        // commentsByPostId: (_, {postId}) => {
-        //     return axios.get(`${MAIN_API_URL}${POST_ROUTE}/${postId}/${COMMENT_ROUTE}`).then(res => res.data)
-        // },
-        // comment: (_, {id}) => {
-        //     return axios.get(`${MAIN_API_URL}${COMMENT_ROUTE}/${id}`).then(res => res.data)
-        // },
-        // albums: () => {
-        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}`).then(res => res.data)
-        // },
-        // albumsByUserId: (_, {userId}) => {
-        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${ALBUM_ROUTE}`).then(res => res.data)
-        // },
-        // album: (_, {id}) => {
-        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}/${id}`).then(res => res.data)
-        // },
-        // photos: () => {
-        //     return axios.get(`${MAIN_API_URL}${PHOTO_ROUTE}`).then(res => res.data)
-        // },
-        // photosByAlbumId: (_, {albumId}) => {
-        //     return axios.get(`${MAIN_API_URL}${ALBUM_ROUTE}/${albumId}/${PHOTO_ROUTE}`).then(res => res.data)
-        // },
-        // photo: (_, {id}) => {
-        //     return axios.get(`${MAIN_API_URL}${PHOTO_ROUTE}/${id}`).then(res => res.data)
-        // },
-        // todos: () => {
-        //     return axios.get(`${MAIN_API_URL}${TODO_ROUTE}`).then(res => res.data)
-        // },
-        // todosByUserId: (_, {userId}) => {
-        //     return axios.get(`${MAIN_API_URL}${USER_ROUTE}/${userId}/${TODO_ROUTE}`).then(res => res.data)
-        // },
-        // todo: (_, {id}) => {
-        //     return axios.get(`${MAIN_API_URL}${TODO_ROUTE}/${id}`).then(res => res.data)
-        // },
+        userPosts: async (_source, {id}, {dataSources}) => {
+            return dataSources.usersAPI.getUserPosts(id);
+        },
+        userAlbums: async (_source, {id}, {dataSources}) => {
+            return dataSources.usersAPI.getUserAlbums(id);
+        },
+        userTodos: async (_source, {id}, {dataSources}) => {
+            return dataSources.usersAPI.getUserTodos(id);
+        },
+        posts: async (_source, _args, {dataSources}) => {
+            return dataSources.postsAPI.getPosts();
+        },
+        post: async (_source, {id}, {dataSources}) => {
+            return dataSources.postsAPI.getPost(id);
+        },
+        postComments: async (_source, {id}, {dataSources}) => {
+            return dataSources.postsAPI.getPostComments(id);
+        },
+        comments: async (_source, _args, {dataSources}) => {
+            return dataSources.commentsAPI.getComments();
+        },
+        comment: async (_source, {id}, {dataSources}) => {
+            return dataSources.commentsAPI.getComment(id);
+        },
+        albums:  async (_source, _args, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbums();
+        },
+        album: async (_source, {id}, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbum(id);
+        },
+        albumPhotos: async (_source, {id}, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbumPhotos(id);
+        },
+        photos: async (_source, _args, {dataSources}) => {
+            return dataSources.photosAPI.getPhotos();
+        },
+        photo: async (_source, {id}, {dataSources}) => {
+            return dataSources.photosAPI.getPhoto(id);
+        },
+        todos: async (_source, _args, {dataSources}) => {
+            return dataSources.todosAPI.getTodos();
+        },
+        todo: async (_source, {id}, {dataSources}) => {
+            return dataSources.todosAPI.getTodo(id);
+        },
     },
 };
 
@@ -145,7 +146,12 @@ const server = new ApolloServer({
     resolvers,
     dataSources: () => {
         return {
-            usersAPI: new UsersAPI()
+            usersAPI: new UsersAPI(),
+            postsAPI: new PostsAPI(),
+            commentsAPI: new CommentsAPI(),
+            albumsAPI: new AlbumsAPI(),
+            photosAPI: new PhotosAPI(),
+            todosAPI: new TodosAPI()
         }
     }
 });
