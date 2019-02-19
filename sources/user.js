@@ -6,10 +6,6 @@ class UsersAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    willSendRequest(request) {
-        // request.headers.set('Authorization', this.context.token);
-        // request.headers.set('Content-Type', 'application/json')
-      }
     async getUsers() {
         return this.get(USER_ROUTE, {
             _limit: 20
@@ -34,10 +30,13 @@ class UsersAPI extends RESTDataSource {
         })
     }
     async createUser(user) {
-        return this.post(USER_ROUTE, {
-            name: user.name,
-            username: user.username
-        })
+        return this.post(USER_ROUTE, user)
+    }
+    async updateUser(id, user) {
+        return this.put(`${USER_ROUTE}/${id}`, user)
+    }
+    async deleteUser(id, user) {
+        return this.delete(`${USER_ROUTE}/${id}`, user)
     }
 }
 
