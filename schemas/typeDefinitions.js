@@ -104,7 +104,9 @@ input UserInput {
     company: CompanyInput
 }
 type Mutation {
-    createUser(user: UserInput): User
+    createUser(user: UserInput!): User
+    updateUser(id: ID!, user: UserInput!): User
+    deleteUser(id: ID): User 
 }
 `;
 

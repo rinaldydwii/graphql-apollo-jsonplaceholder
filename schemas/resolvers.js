@@ -55,6 +55,12 @@ const resolvers = {
     Mutation: {
         createUser: async (_, {user}, {dataSources}) => {
             return dataSources.usersAPI.createUser(user);
+        },
+        updateUser: async (_, {id, user}, {dataSources}) => {
+            return dataSources.usersAPI.updateUser(id, user);
+        },
+        deleteUser: async (_, {id}, {dataSources}) => {
+            return dataSources.usersAPI.deleteUser(id);
         }
     }
 };
