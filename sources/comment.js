@@ -14,6 +14,15 @@ class CommentsAPI extends RESTDataSource {
     async getComment(id) {
         return this.get(`${COMMENT_ROUTE}/${id}`)
     }
+    async createComment(comment) {
+        return this.post(COMMENT_ROUTE, comment)
+    }
+    async updateComment(id, comment) {
+        return this.put(`${COMMENT_ROUTE}/${id}`, comment)
+    }
+    async deleteComment(id, comment) {
+        return this.delete(`${COMMENT_ROUTE}/${id}`, comment)
+    }
 }
 
 module.exports = CommentsAPI

@@ -19,6 +19,15 @@ class PostsAPI extends RESTDataSource {
             _limit: 10
         })
     }
+    async createPost(post) {
+        return this.post(POST_ROUTE, post)
+    }
+    async updatePost(id, post) {
+        return this.put(`${POST_ROUTE}/${id}`, post)
+    }
+    async deletePost(id, post) {
+        return this.delete(`${POST_ROUTE}/${id}`, post)
+    }
 }
 
 module.exports = PostsAPI

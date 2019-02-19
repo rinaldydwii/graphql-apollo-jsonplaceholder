@@ -19,6 +19,15 @@ class AlbumsAPI extends RESTDataSource {
             _limit: 10
         })
     }
+    async createAlbum(album) {
+        return this.post(ALBUM_ROUTE, album)
+    }
+    async updateAlbum(id, album) {
+        return this.put(`${ALBUM_ROUTE}/${id}`, album)
+    }
+    async deleteAlbum(id, album) {
+        return this.delete(`${ALBUM_ROUTE}/${id}`, album)
+    }
 }
 
 module.exports = AlbumsAPI

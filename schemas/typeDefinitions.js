@@ -62,7 +62,7 @@ type Query {
     users: [User]
     user(id: ID!): User
     userPosts(id: ID!): [Post]
-    userAlbums(id: ID!): [Post]
+    userAlbums(id: ID!): [Album]
     userTodos(id: ID!): [Todo]
     posts: [Post]
     post(id: ID!): Post
@@ -103,6 +103,27 @@ input UserInput {
     address: AddressInput
     company: CompanyInput
 }
+input PostInput {
+    userId: ID
+    title: String
+    body: String
+}
+input CommentInput {
+    postId: ID
+    name: String
+    email: String
+    body: String
+}
+input AlbumInput {
+    userId: ID
+    title: String
+}
+input PhotoInput {
+    albumId: ID
+    title: String
+    url: String
+    thumbnailUrl: String
+}
 input TodoInput {
     userId: ID
     title: String
@@ -112,6 +133,18 @@ type Mutation {
     createUser(user: UserInput!): User
     updateUser(id: ID!, user: UserInput!): User
     deleteUser(id: ID): User 
+    createPost(post: PostInput!): Post
+    updatePost(id: ID!, post: PostInput!): Post
+    deletePost(id: ID): Post 
+    createComment(comment: CommentInput!): Comment
+    updateComment(id: ID!, comment: CommentInput!): Comment
+    deleteComment(id: ID): Comment 
+    createAlbum(album: AlbumInput!): Album
+    updateAlbum(id: ID!, album: AlbumInput!): Album
+    deleteAlbum(id: ID): Album 
+    createPhoto(photo: PhotoInput!): Photo
+    updatePhoto(id: ID!, photo: PhotoInput!): Photo
+    deletePhoto(id: ID): Photo 
     createTodo(todo: TodoInput!): Todo
     updateTodo(id: ID!, todo: TodoInput!): Todo
     deleteTodo(id: ID): Todo 

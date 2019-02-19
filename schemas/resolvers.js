@@ -62,6 +62,42 @@ const resolvers = {
         deleteUser: async (_, {id}, {dataSources}) => {
             return dataSources.usersAPI.deleteUser(id);
         },
+        createPost: async (_, {post}, {dataSources}) => {
+            return dataSources.postsAPI.createPost(post);
+        },
+        updatePost: async (_, {id, post}, {dataSources}) => {
+            return dataSources.postsAPI.updatePost(id, post);
+        },
+        deletePost: async (_, {id}, {dataSources}) => {
+            return dataSources.postsAPI.deletePost(id);
+        },
+        createComment: async (_, {comment}, {dataSources}) => {
+            return dataSources.commentsAPI.createComment(comment);
+        },
+        updateComment: async (_, {id, comment}, {dataSources}) => {
+            return dataSources.commentsAPI.updateComment(id, comment);
+        },
+        deleteComment: async (_, {id}, {dataSources}) => {
+            return dataSources.commentsAPI.deleteComment(id);
+        },
+        createAlbum: async (_, {album}, {dataSources}) => {
+            return dataSources.albumsAPI.createAlbum(album);
+        },
+        updateAlbum: async (_, {id, album}, {dataSources}) => {
+            return dataSources.albumsAPI.updateAlbum(id, album);
+        },
+        deleteAlbum: async (_, {id}, {dataSources}) => {
+            return dataSources.albumsAPI.deleteAlbum(id);
+        },
+        createPhoto: async (_, {photo}, {dataSources}) => {
+            return dataSources.photosAPI.createPhoto(photo);
+        },
+        updatePhoto: async (_, {id, photo}, {dataSources}) => {
+            return dataSources.photosAPI.updatePhoto(id, photo);
+        },
+        deletePhoto: async (_, {id}, {dataSources}) => {
+            return dataSources.photosAPI.deletePhoto(id);
+        },
         createTodo: async (_, {todo}, {dataSources}) => {
             return dataSources.todosAPI.createTodo(todo);
         },

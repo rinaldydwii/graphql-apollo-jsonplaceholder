@@ -14,6 +14,15 @@ class PhotosAPI extends RESTDataSource {
     async getPhoto(id) {
         return this.get(`${PHOTO_ROUTE}/${id}`)
     }
+    async createPhoto(photo) {
+        return this.post(PHOTO_ROUTE, photo)
+    }
+    async updatePhoto(id, photo) {
+        return this.put(`${PHOTO_ROUTE}/${id}`, photo)
+    }
+    async deletePhoto(id, photo) {
+        return this.delete(`${PHOTO_ROUTE}/${id}`, photo)
+    }
 }
 
 module.exports = PhotosAPI
