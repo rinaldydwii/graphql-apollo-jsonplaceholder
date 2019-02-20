@@ -1,6 +1,6 @@
-// const MAIN_API_URL = "https://json-server-jsonplaceholder.herokuapp.com/"
+const MAIN_API_URL = "https://json-server-jsonplaceholder.herokuapp.com/";
 // const MAIN_API_URL = "http://192.168.1.66:3000/"
-const MAIN_API_URL = "http://localhost:3000/"
+// const MAIN_API_URL = "http://localhost:3000/";
 const USER_ROUTE = "users";
 const POST_ROUTE = "posts";
 const COMMENT_ROUTE = "comments";
