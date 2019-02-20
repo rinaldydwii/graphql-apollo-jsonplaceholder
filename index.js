@@ -22,7 +22,9 @@ const server = new ApolloServer({
             photosAPI: new PhotosAPI(),
             todosAPI: new TodosAPI()
         }
-    }
+    },
+    introspection: true,
+    // playground: true
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
