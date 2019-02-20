@@ -6,22 +6,23 @@ class PhotosAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    async getPhotos() {
-        return this.get(PHOTO_ROUTE, {
-            _limit: 20
+    async getPhotos(limit, page) {
+        return await this.get(PHOTO_ROUTE, {
+            _limit: limit || 8,
+            _page: page || 1
         })
     }
     async getPhoto(id) {
-        return this.get(`${PHOTO_ROUTE}/${id}`)
+        return await this.get(`${PHOTO_ROUTE}/${id}`)
     }
     async createPhoto(photo) {
-        return this.post(PHOTO_ROUTE, photo)
+        return await this.post(PHOTO_ROUTE, photo)
     }
     async updatePhoto(id, photo) {
-        return this.put(`${PHOTO_ROUTE}/${id}`, photo)
+        return await this.put(`${PHOTO_ROUTE}/${id}`, photo)
     }
     async deletePhoto(id, photo) {
-        return this.delete(`${PHOTO_ROUTE}/${id}`, photo)
+        return await this.delete(`${PHOTO_ROUTE}/${id}`, photo)
     }
 }
 

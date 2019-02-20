@@ -6,22 +6,23 @@ class TodosAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    async getTodos() {
-        return this.get(TODO_ROUTE, {
-            _limit: 20
+    async getTodos(limit, page) {
+        return await this.get(TODO_ROUTE, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
     async getTodo(id) {
-        return this.get(`${TODO_ROUTE}/${id}`)
+        return await this.get(`${TODO_ROUTE}/${id}`)
     }
     async createTodo(todo) {
-        return this.post(TODO_ROUTE, todo)
+        return await this.post(TODO_ROUTE, todo)
     }
     async updateTodo(id, todo) {
-        return this.put(`${TODO_ROUTE}/${id}`, todo)
+        return await this.put(`${TODO_ROUTE}/${id}`, todo)
     }
     async deleteTodo(id, todo) {
-        return this.delete(`${TODO_ROUTE}/${id}`, todo)
+        return await this.delete(`${TODO_ROUTE}/${id}`, todo)
     }
 }
 

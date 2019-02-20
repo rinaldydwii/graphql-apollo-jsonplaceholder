@@ -6,27 +6,29 @@ class AlbumsAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    async getAlbums() {
-        return this.get(ALBUM_ROUTE, {
-            _limit: 20
+    async getAlbums(limit, page) {
+        return await this.get(ALBUM_ROUTE, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
     async getAlbum(id) {
-        return this.get(`${ALBUM_ROUTE}/${id}`)
+        return await this.get(`${ALBUM_ROUTE}/${id}`)
     }
-    async getAlbumPhotos(id) {
-        return this.get(`${ALBUM_ROUTE}/${id}/${PHOTO_ROUTE}`, {
-            _limit: 10
+    async getAlbumPhotos(id, limit, page) {
+        return await this.get(`${ALBUM_ROUTE}/${id}/${PHOTO_ROUTE}`, {
+            _limit: limit || 8,
+            _page: page || 1
         })
     }
     async createAlbum(album) {
-        return this.post(ALBUM_ROUTE, album)
+        return await this.post(ALBUM_ROUTE, album)
     }
     async updateAlbum(id, album) {
-        return this.put(`${ALBUM_ROUTE}/${id}`, album)
+        return await this.put(`${ALBUM_ROUTE}/${id}`, album)
     }
     async deleteAlbum(id, album) {
-        return this.delete(`${ALBUM_ROUTE}/${id}`, album)
+        return await this.delete(`${ALBUM_ROUTE}/${id}`, album)
     }
 }
 

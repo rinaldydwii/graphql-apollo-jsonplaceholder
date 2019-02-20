@@ -6,27 +6,29 @@ class PostsAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    async getPosts() {
-        return this.get(POST_ROUTE, {
-            _limit: 20
+    async getPosts(limit, page) {
+        return await this.get(POST_ROUTE, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
     async getPost(id) {
-        return this.get(`${POST_ROUTE}/${id}`)
+        return await this.get(`${POST_ROUTE}/${id}`)
     }
-    async getPostComments(id) {
-        return this.get(`${POST_ROUTE}/${id}/${COMMENT_ROUTE}`, {
-            _limit: 10
+    async getPostComments(id, limit, page) {
+        return await this.get(`${POST_ROUTE}/${id}/${COMMENT_ROUTE}`, {
+            _limit: limit || 10,
+            _page: page || 1
         })
     }
     async createPost(post) {
-        return this.post(POST_ROUTE, post)
+        return await this.post(POST_ROUTE, post)
     }
     async updatePost(id, post) {
-        return this.put(`${POST_ROUTE}/${id}`, post)
+        return await this.put(`${POST_ROUTE}/${id}`, post)
     }
     async deletePost(id, post) {
-        return this.delete(`${POST_ROUTE}/${id}`, post)
+        return await this.delete(`${POST_ROUTE}/${id}`, post)
     }
 }
 

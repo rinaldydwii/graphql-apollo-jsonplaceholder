@@ -6,37 +6,41 @@ class UsersAPI extends RESTDataSource {
         super()
         this.baseURL = MAIN_API_URL
     }
-    async getUsers() {
-        return this.get(USER_ROUTE, {
-            _limit: 20
+    async getUsers(limit, page) {
+        return await this.get(USER_ROUTE, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
     async getUser(id) {
-        return this.get(`${USER_ROUTE}/${id}`)
+        return await this.get(`${USER_ROUTE}/${id}`)
     }
-    async getUserPosts(id) {
-        return this.get(`${USER_ROUTE}/${id}/${POST_ROUTE}`, {
-            _limit: 20
+    async getUserPosts(id, limit, page) {
+        return await this.get(`${USER_ROUTE}/${id}/${POST_ROUTE}`, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
-    async getUserAlbums(id) {
-        return this.get(`${USER_ROUTE}/${id}/${ALBUM_ROUTE}`, {
-            _limit: 20
+    async getUserAlbums(id, limit, page) {
+        return await this.get(`${USER_ROUTE}/${id}/${ALBUM_ROUTE}`, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
-    async getUserTodos(id) {
-        return this.get(`${USER_ROUTE}/${id}/${TODO_ROUTE}`, {
-            _limit: 20
+    async getUserTodos(id, limit, page) {
+        return await this.get(`${USER_ROUTE}/${id}/${TODO_ROUTE}`, {
+            _limit: limit || 20,
+            _page: page || 1
         })
     }
     async createUser(user) {
-        return this.post(USER_ROUTE, user)
+        return await this.post(USER_ROUTE, user)
     }
     async updateUser(id, user) {
-        return this.put(`${USER_ROUTE}/${id}`, user)
+        return await this.put(`${USER_ROUTE}/${id}`, user)
     }
     async deleteUser(id, user) {
-        return this.delete(`${USER_ROUTE}/${id}`, user)
+        return await this.delete(`${USER_ROUTE}/${id}`, user)
     }
 }
 
