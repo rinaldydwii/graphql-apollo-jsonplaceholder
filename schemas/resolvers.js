@@ -1,52 +1,52 @@
 const resolvers = {
     Query: {
-        users: async (_source, _args, {dataSources}) => {
-            return dataSources.usersAPI.getUsers();
+        users: async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.usersAPI.getUsers(limit, page);
         },
         user: async (_source, {id}, {dataSources}) => {
             return dataSources.usersAPI.getUser(id);
         },
-        userPosts: async (_source, {id}, {dataSources}) => {
-            return dataSources.usersAPI.getUserPosts(id);
+        userPosts: async (_source, {id, limit, page}, {dataSources}) => {
+            return dataSources.usersAPI.getUserPosts(id, limit, page);
         },
-        userAlbums: async (_source, {id}, {dataSources}) => {
-            return dataSources.usersAPI.getUserAlbums(id);
+        userAlbums: async (_source, {id, limit, page}, {dataSources}) => {
+            return dataSources.usersAPI.getUserAlbums(id, limit, page);
         },
-        userTodos: async (_source, {id}, {dataSources}) => {
-            return dataSources.usersAPI.getUserTodos(id);
+        userTodos: async (_source, {id, limit, page}, {dataSources}) => {
+            return dataSources.usersAPI.getUserTodos(id, limit, page);
         },
-        posts: async (_source, _args, {dataSources}) => {
-            return dataSources.postsAPI.getPosts();
+        posts: async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.postsAPI.getPosts(limit, page);
         },
         post: async (_source, {id}, {dataSources}) => {
             return dataSources.postsAPI.getPost(id);
         },
-        postComments: async (_source, {id}, {dataSources}) => {
-            return dataSources.postsAPI.getPostComments(id);
+        postComments: async (_source, {id, limit, page}, {dataSources}) => {
+            return dataSources.postsAPI.getPostComments(id, limit, page);
         },
-        comments: async (_source, _args, {dataSources}) => {
-            return dataSources.commentsAPI.getComments();
+        comments: async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.commentsAPI.getComments(limit, page);
         },
         comment: async (_source, {id}, {dataSources}) => {
             return dataSources.commentsAPI.getComment(id);
         },
-        albums:  async (_source, _args, {dataSources}) => {
-            return dataSources.albumsAPI.getAlbums();
+        albums:  async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbums(limit, page);
         },
         album: async (_source, {id}, {dataSources}) => {
             return dataSources.albumsAPI.getAlbum(id);
         },
-        albumPhotos: async (_source, {id}, {dataSources}) => {
-            return dataSources.albumsAPI.getAlbumPhotos(id);
+        albumPhotos: async (_source, {id, limit, page}, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbumPhotos(id, limit, page);
         },
-        photos: async (_source, _args, {dataSources}) => {
-            return dataSources.photosAPI.getPhotos();
+        photos: async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.photosAPI.getPhotos(limit, page);
         },
         photo: async (_source, {id}, {dataSources}) => {
             return dataSources.photosAPI.getPhoto(id);
         },
-        todos: async (_source, _args, {dataSources}) => {
-            return dataSources.todosAPI.getTodos();
+        todos: async (_source, {limit, page}, {dataSources}) => {
+            return dataSources.todosAPI.getTodos(limit, page);
         },
         todo: async (_source, {id}, {dataSources}) => {
             return dataSources.todosAPI.getTodo(id);

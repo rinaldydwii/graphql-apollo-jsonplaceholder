@@ -1,6 +1,37 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql `
+type Comment {
+    postId: ID
+    id: ID
+    name: String
+    email: String
+    body: String
+}
+type Post {
+    userId: ID
+    id: ID
+    title: String
+    body: String
+}
+type Photo {
+    albumId: ID
+    id: ID
+    title: String
+    url: String
+    thumbnailUrl: String
+}
+type Album {
+    userId: ID
+    id: ID
+    title: String
+}
+type Todo {
+    userId: ID
+    id: ID
+    title: String
+    completed: Boolean
+}
 type Geo {
     lat: String
     lng: String
@@ -58,23 +89,24 @@ type Todo {
     title: String
     completed: Boolean
 }
+
 type Query {
-    users: [User]
+    users(limit: Int, page: Int): [User]
     user(id: ID!): User
-    userPosts(id: ID!): [Post]
-    userAlbums(id: ID!): [Album]
-    userTodos(id: ID!): [Todo]
-    posts: [Post]
+    userPosts(id: ID!, limit: Int, page: Int): [Post]
+    userAlbums(id: ID!, limit: Int, page: Int): [Album]
+    userTodos(id: ID!, limit: Int, page: Int): [Todo]
+    posts(limit: Int, page: Int): [Post]
     post(id: ID!): Post
-    postComments(id: ID!): [Comment]
-    comments: [Comment]
+    postComments(id: ID!, limit: Int, page: Int): [Comment]
+    comments(limit: Int, page: Int): [Comment]
     comment(id: ID!): Comment
-    albums: [Album]
+    albums(limit: Int, page: Int): [Album]
     album(id: ID!): Album
-    albumPhotos(id: ID!): [Photo]
-    photos: [Photo]
+    albumPhotos(id: ID!, limit: Int, page: Int): [Photo]
+    photos(limit: Int, page: Int): [Photo]
     photo(id: ID!): Photo
-    todos: [Todo]
+    todos(limit: Int, page: Int): [Todo]
     todo(id: ID!): Todo
 }
 
