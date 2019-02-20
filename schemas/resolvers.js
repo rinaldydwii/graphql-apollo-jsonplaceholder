@@ -52,6 +52,27 @@ const resolvers = {
             return dataSources.todosAPI.getTodo(id);
         },
     },
+    User: {
+        posts: ({id}, _, {dataSources}) => {
+            return dataSources.usersAPI.getUserPosts(id, 8);
+        },
+        albums: ({id}, _, {dataSources}) => {
+            return dataSources.usersAPI.getUserAlbums(id, 8);
+        },
+        todos: ({id}, _, {dataSources}) => {
+            return dataSources.usersAPI.getUserTodos(id, 8);
+        }
+    },
+    Post: {
+        comments: ({id}, _, {dataSources}) => {
+            return dataSources.postsAPI.getPostComments(id, 8);
+        }
+    },
+    Album: {
+        photos: ({id}, _, {dataSources}) => {
+            return dataSources.albumsAPI.getAlbumPhotos(id, 8);
+        }
+    },
     Mutation: {
         createUser: async (_, {user}, {dataSources}) => {
             return dataSources.usersAPI.createUser(user);

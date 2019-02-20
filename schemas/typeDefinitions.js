@@ -13,6 +13,7 @@ type Post {
     id: ID
     title: String
     body: String
+    comments: [Comment]
 }
 type Photo {
     albumId: ID
@@ -25,6 +26,7 @@ type Album {
     userId: ID
     id: ID
     title: String
+    photos: [Photo]
 }
 type Todo {
     userId: ID
@@ -57,37 +59,9 @@ type User {
     website: String
     address: Address
     company: Company
-}
-type Post {
-    userId: ID
-    id: ID
-    title: String
-    body: String
-}
-type Comment {
-    postId: ID
-    id: ID
-    name: String
-    email: String
-    body: String
-}
-type Album {
-    userId: ID
-    id: ID
-    title: String
-}
-type Photo {
-    albumId: ID
-    id: ID
-    title: String
-    url: String
-    thumbnailUrl: String
-}
-type Todo {
-    userId: ID
-    id: ID
-    title: String
-    completed: Boolean
+    posts: [Post]
+    albums: [Album]
+    todos: [Todo]
 }
 
 type Query {
