@@ -9,7 +9,9 @@ class PhotosAPI extends RESTDataSource {
     async getPhotos(limit, page) {
         return await this.get(PHOTO_ROUTE, {
             _limit: limit || 8,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async getPhoto(id) {

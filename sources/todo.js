@@ -9,7 +9,9 @@ class TodosAPI extends RESTDataSource {
     async getTodos(limit, page) {
         return await this.get(TODO_ROUTE, {
             _limit: limit || 20,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async getTodo(id) {

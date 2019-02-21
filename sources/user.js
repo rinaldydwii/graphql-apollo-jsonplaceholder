@@ -18,19 +18,25 @@ class UsersAPI extends RESTDataSource {
     async getUserPosts(id, limit, page) {
         return await this.get(`${USER_ROUTE}/${id}/${POST_ROUTE}`, {
             _limit: limit || 20,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async getUserAlbums(id, limit, page) {
         return await this.get(`${USER_ROUTE}/${id}/${ALBUM_ROUTE}`, {
             _limit: limit || 20,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async getUserTodos(id, limit, page) {
         return await this.get(`${USER_ROUTE}/${id}/${TODO_ROUTE}`, {
             _limit: limit || 20,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async createUser(user) {

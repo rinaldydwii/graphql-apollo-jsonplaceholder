@@ -9,7 +9,9 @@ class AlbumsAPI extends RESTDataSource {
     async getAlbums(limit, page) {
         return await this.get(ALBUM_ROUTE, {
             _limit: limit || 20,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async getAlbum(id) {
@@ -18,7 +20,9 @@ class AlbumsAPI extends RESTDataSource {
     async getAlbumPhotos(id, limit, page) {
         return await this.get(`${ALBUM_ROUTE}/${id}/${PHOTO_ROUTE}`, {
             _limit: limit || 8,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async createAlbum(album) {
