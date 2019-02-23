@@ -20,7 +20,9 @@ class PostsAPI extends RESTDataSource {
     async getPostComments(id, limit, page) {
         return await this.get(`${POST_ROUTE}/${id}/${COMMENT_ROUTE}`, {
             _limit: limit || 10,
-            _page: page || 1
+            _page: page || 1,
+            _sort: "id",
+            _order: "desc"
         })
     }
     async createPost(post) {
