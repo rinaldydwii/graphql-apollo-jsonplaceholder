@@ -138,22 +138,22 @@ input TodoInput {
 type Mutation {
     createUser(user: UserInput!): User
     updateUser(id: ID!, user: UserInput!): User
-    deleteUser(id: ID): User 
+    deleteUser(id: ID!): User 
     createPost(post: PostInput!): Post
     updatePost(id: ID!, post: PostInput!): Post
-    deletePost(id: ID): Post 
+    deletePost(id: ID!): Post 
     createComment(comment: CommentInput!): Comment
     updateComment(id: ID!, comment: CommentInput!): Comment
-    deleteComment(id: ID): Comment 
+    deleteComment(id: ID!): Comment 
     createAlbum(album: AlbumInput!): Album
     updateAlbum(id: ID!, album: AlbumInput!): Album
-    deleteAlbum(id: ID): Album 
+    deleteAlbum(id: ID!): Album 
     createPhoto(photo: PhotoInput!): Photo
     updatePhoto(id: ID!, photo: PhotoInput!): Photo
-    deletePhoto(id: ID): Photo 
+    deletePhoto(id: ID!): Photo 
     createTodo(todo: TodoInput!): Todo
     updateTodo(id: ID!, todo: TodoInput!): Todo
-    deleteTodo(id: ID): Todo 
+    deleteTodo(id: ID!): Todo 
 }
 `;
 
